@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Patamar — design tokens (direção escolhida: A · "Azulejo")
+   Azul de azulejo + papel quente + ocre. Fraunces nos títulos e números
+   grandes, Inter no resto.
+
+   USO COM TAILWIND
+   - v4 (CSS-first): importar este ficheiro e mapear no @theme:
+       @import "./tokens.css";
+       @theme inline {
+         --color-paper: var(--paper);   --color-surface: var(--surface);
+         --color-ink: var(--ink);       --color-muted: var(--ink-2);
+         --color-line: var(--line);     --color-brand-600: var(--blue-600);
+         --color-brand-700: var(--blue-700); --color-brand-50: var(--blue-50);
+         --font-display: var(--font-display); --font-sans: var(--font-body);
+         --radius-md: var(--r-md); --radius-lg: var(--r-lg);
+       }
+   - v3: theme.extend.colors = { paper: 'var(--paper)', ink: 'var(--ink)', ... }
+   Todos os valores abaixo são variáveis CSS, por isso funcionam também sem Tailwind.
+
+   Contraste (texto sobre fundo): ink/paper 14:1, ink-2/paper 7:1,
+   blue-600/branco 8,6:1, ok-ink/ok-bg 6,9:1, warn-ink/warn-bg 6,3:1,
+   bad-ink/bad-bg 6,4:1 — todos AA.
+   ========================================================================== */
+
+:root {
+  /* --- Cor · primitivas ------------------------------------------------- */
+  --blue-50:  #E8EFF8;
+  --blue-100: #D2E0F1;
+  --blue-200: #A9C3E3;
+  --blue-500: #2C6AB0;
+  --blue-600: #1D4E89;   /* primária */
+  --blue-700: #163C6B;
+  --blue-900: #0F2747;
+
+  --ochre-100: #FBF0DC;
+  --ochre-500: #C9892B;  /* acento */
+  --ochre-700: #7A4E0B;
+
+  --green-100: #E3F2EA;
+  --green-600: #2F7D5B;
+  --green-800: #1F5A40;
+
+  --red-100: #FBE6E1;
+  --red-600: #B5402F;
+  --red-800: #8A2D20;
+
+  /* --- Cor · semânticas ------------------------------------------------- */
+  --paper:     #FAF7F2;  /* fundo da app */
+  --surface:   #FFFFFF;  /* cartões */
+  --surface-2: #F3EEE6;  /* áreas rebaixadas, cabeçalhos de tabela */
+  --line:      #E4DDD0;
+  --line-strong: #CFC6B5;
+  --ink:       #1B2433;
+  --ink-2:     #4A5568;  /* texto secundário */
+  --ink-3:     #6B7384;  /* só para texto grande ou decorativo */
+
+  --brand:        var(--blue-600);
+  --brand-hover:  var(--blue-700);
+  --brand-soft:   var(--blue-50);
+  --on-brand:     #FFFFFF;
+
+  --ok-bg: var(--green-100);  --ok-ink: var(--green-800);  --ok: var(--green-600);
+  --warn-bg: var(--ochre-100); --warn-ink: var(--ochre-700); --warn: var(--ochre-500);
+  --bad-bg: var(--red-100);   --bad-ink: var(--red-800);   --bad: var(--red-600);
+  --info-bg: var(--blue-50);  --info-ink: var(--blue-700);
+
+  --focus: 0 0 0 3px rgba(44, 106, 176, .45);
+
+  /* --- Tipografia ------------------------------------------------------- */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --fs-xs: .75rem;     /* 12 */
+  --fs-sm: .875rem;    /* 14 */
+  --fs-md: 1rem;       /* 16 (mínimo em inputs: evita zoom no iOS) */
+  --fs-lg: 1.125rem;   /* 18 */
+  --fs-xl: 1.375rem;   /* 22 */
+  --fs-2xl: 1.75rem;   /* 28 */
+  --fs-3xl: 2.25rem;   /* 36 — números de saldo */
+  --lh-tight: 1.15;
+  --lh-body: 1.5;
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+
+  /* --- Espaçamento (base 4 px) ----------------------------------------- */
+  --s-1: .25rem; --s-2: .5rem;  --s-3: .75rem; --s-4: 1rem;
+  --s-5: 1.25rem; --s-6: 1.5rem; --s-8: 2rem;  --s-10: 2.5rem; --s-12: 3rem;
+  --gutter: var(--s-4);        /* margem lateral no telemóvel */
+
+  /* --- Forma ------------------------------------------------------------ */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(27,36,51,.06), 0 1px 1px rgba(27,36,51,.04);
+  --shadow-2: 0 6px 20px rgba(27,36,51,.10);
+  --tap: 44px;                 /* alvo tátil mínimo */
+
+  /* --- Layout ----------------------------------------------------------- */
+  --bp-desktop: 900px;
+  --content-max: 1080px;
+  --nav-h: 64px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
