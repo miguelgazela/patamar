@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { VERSAO_TEXTOS_LEGAIS } from "@/lib/legal";
+import { criarClienteAnonimo } from "@/lib/supabase/anonimo";
 import { criarClienteServidor } from "@/lib/supabase/server";
 
 export interface EstadoEntrar {
@@ -16,7 +17,7 @@ export async function pedirCodigo(_: EstadoEntrar, dados: FormData): Promise<Est
   const email = String(dados.get("email") ?? "").trim().toLowerCase();
   if (!EMAIL.test(email)) return { passo: "email", email, erro: "Indique um email válido." };
 
-  const supabase = await criarClienteServidor();
+  const supabase = criarClienteAnonimo(); // sem PKCE: ver criarClienteAnonimo
   const criar = dados.get("criar") === "1"; // só em /comecar: cria a conta se ainda não existir
   if (criar && dados.get("aceito") !== "on") {
     return { passo: "email", email, erro: "Para criar o condomínio, aceite os Termos de utilização e a Política de privacidade." };
