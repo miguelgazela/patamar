@@ -41,7 +41,8 @@ export async function pedirCodigo(_: EstadoEntrar, dados: FormData): Promise<Est
 export async function validarCodigo(_: EstadoEntrar, dados: FormData): Promise<EstadoEntrar> {
   const email = String(dados.get("email") ?? "");
   const codigo = String(dados.get("codigo") ?? "").replace(/\s/g, "");
-  if (!/^\d{6}$/.test(codigo)) return { passo: "codigo", email, erro: "O código tem 6 dígitos." };
+  // O tamanho do código é configurado no Supabase (6 a 10 dígitos; os projetos novos usam 8).
+  if (!/^\d{6,10}$/.test(codigo)) return { passo: "codigo", email, erro: "Escreva o código completo que recebeu por email (só dígitos)." };
 
   const supabase = await criarClienteServidor();
   // O tipo depende de como a conta foi criada: «email» cobre o normal; «signup» e «magiclink» são alternativas

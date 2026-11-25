@@ -18,7 +18,7 @@ export function Formulario({ criar = false }: { criar?: boolean }) {
   return emCodigo ? (
     <form action={validar} className="flex flex-col gap-4">
       <p className="text-muted">
-        Enviámos um código de 6 dígitos para <strong className="text-ink">{email}</strong>. Se o email estiver registado,
+        Enviámos um código para <strong className="text-ink">{email}</strong>. Se o email estiver registado,
         chega em poucos segundos.
       </p>
       <input type="hidden" name="email" value={email} />
@@ -29,7 +29,7 @@ export function Formulario({ criar = false }: { criar?: boolean }) {
           inputMode="numeric"
           autoComplete="one-time-code"
           pattern="[0-9]*"
-          maxLength={6}
+          maxLength={10}
           required
           autoFocus
           className="rounded-md border border-line bg-surface px-4 py-3 text-center text-2xl tracking-[0.5em]"

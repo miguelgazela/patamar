@@ -62,12 +62,12 @@ export async function convidarAction(_: EstadoConvite, dados: FormData): Promise
     await enviarEmail({
       para: email,
       assunto: `Acesso ao Patamar · ${cond.data.nome}`,
-      texto: `Olá ${pessoa.data.nome.split(" ")[0]},\n\n${admin.data.nome}, administrador(a) do ${cond.data.nome}, deu-lhe acesso ao Patamar, onde pode ver o seu saldo, as quotas e as contas do prédio.\n\nPara entrar, abra ${url}, escreva este email e receberá um código de 6 dígitos. Não precisa de palavra-passe.\n`,
+      texto: `Olá ${pessoa.data.nome.split(" ")[0]},\n\n${admin.data.nome}, administrador(a) do ${cond.data.nome}, deu-lhe acesso ao Patamar, onde pode ver o seu saldo, as quotas e as contas do prédio.\n\nPara entrar, abra ${url}, escreva este email e receberá um código. Não precisa de palavra-passe.\n`,
       html: `<div style="font-family:Inter,system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#1B2433;background:#FAF7F2">
 <h2 style="font-family:Georgia,serif;color:#1D4E89;margin:0 0 16px">Patamar</h2>
 <p>Olá ${nome},</p>
 <p>${quem}, administrador(a) do ${condominio}, deu-lhe acesso ao Patamar, onde pode ver o seu saldo, as quotas e as contas do prédio.</p>
-<p>Para entrar, abra <a href="${url}" style="color:#1D4E89">${url}</a>, escreva este email e receberá um código de 6 dígitos. Não precisa de palavra-passe.</p></div>`,
+<p>Para entrar, abra <a href="${url}" style="color:#1D4E89">${url}</a>, escreva este email e receberá um código. Não precisa de palavra-passe.</p></div>`,
     });
   } catch (e) {
     console.error("Erro ao enviar convite", e instanceof Error ? e.message : e);

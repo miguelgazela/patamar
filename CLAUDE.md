@@ -22,7 +22,7 @@ Gerir o condomínio em 15 minutos por mês, com contas transparentes para todos 
 | Papel | O que faz | Acesso |
 | --- | --- | --- |
 | Administrador | Configura o prédio, regista despesas e pagamentos, gera documentos, envia avisos | Conta própria |
-| Condómino | Vê o seu saldo e as contas do prédio, descarrega documentos | Código de 6 dígitos por email, sem password |
+| Condómino | Vê o seu saldo e as contas do prédio, descarrega documentos | Código de uso único por email (6 a 10 dígitos, conforme o Supabase), sem password |
 | Administrador seguinte | Recebe o prédio com todo o histórico quando o cargo muda | Convite do administrador anterior |
 
 Um condómino pode ter várias frações e uma fração pode ter vários proprietários.
