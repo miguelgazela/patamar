@@ -43,8 +43,28 @@ export async function validarCodigo(_: EstadoEntrar, dados: FormData): Promise<E
   if (!/^\d{6}$/.test(codigo)) return { passo: "codigo", email, erro: "O código tem 6 dígitos." };
 
   const supabase = await criarClienteServidor();
-  const { error } = await supabase.auth.verifyOtp({ email, token: codigo, type: "email" });
-  if (error) return { passo: "codigo", email, erro: "Código inválido ou expirado. Peça um novo código." };
+  // O tipo depende de como a conta foi criada: «email» cobre o normal; «signup» e «magiclink» são alternativas
+  // para contas ainda por confirmar. Experimenta por ordem e só falha se nenhum servir.
+  let ultimoErro: { code?: string; status?: number; message: string } | null = null;
+  for (const type of ["email", "signup", "magiclink"] as const) {
+    const { error } = await supabase.auth.verifyOtp({ email, token: codigo, type });
+    if (!error) {
+      ultimoErro = null;
+      break;
+    }
+    ultimoErro = error;
+    if (error.status === 429) break;
+  }
+  if (ultimoErro) {
+    // Sem dados pessoais: só o motivo, para diagnóstico nos registos do servidor.
+    console.error("verifyOtp falhou:", { code: ultimoErro.code, status: ultimoErro.status, message: ultimoErro.message });
+    const demasiadas = ultimoErro.status === 429;
+    return {
+      passo: "codigo",
+      email,
+      erro: demasiadas ? "Demasiadas tentativas. Aguarde uns minutos e peça um novo código." : "Código inválido ou expirado. Peça um novo código e use o do email mais recente.",
+    };
+  }
 
   redirect("/");
 }
